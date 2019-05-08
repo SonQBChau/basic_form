@@ -7,6 +7,10 @@ import 'package:intl/intl.dart';
 import 'contact.dart';
 import 'contact_service.dart';
 
+/*
+https://codingwithjoe.com/building-forms-with-flutter/
+ */
+
 class FormPage1 extends StatefulWidget {
   FormPage1({Key key, this.title}) : super(key: key);
   final String title;
