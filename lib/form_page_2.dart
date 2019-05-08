@@ -13,6 +13,7 @@ class _SignUpFormState extends State<FormPage2> {
   int _age = 0;
   int _selectedGender = 0;
   List<DropdownMenuItem<int>> genderList = [];
+  String _maritalStatus = 'single';
 
 
   var _passKey = GlobalKey<FormFieldState>();
@@ -59,6 +60,7 @@ class _SignUpFormState extends State<FormPage2> {
     formWidget.add(passwordTextField());
     formWidget.add(confirmPasswordTextField());
     formWidget.add(genderDropdown());
+    formWidget.add(statusRadioButton());
 
     return formWidget;
   }
@@ -170,6 +172,34 @@ class _SignUpFormState extends State<FormPage2> {
       isExpanded: true,
     );
   }
+
+  Widget statusRadioButton() {
+    return Column(
+      children: <Widget>[
+        RadioListTile<String>(
+          title: const Text('Single'),
+          value: 'single',
+          groupValue: _maritalStatus,
+          onChanged: (value) {
+            setState(() {
+              _maritalStatus = value;
+            });
+          },
+        ),
+        RadioListTile<String>(
+          title: const Text('Married'),
+          value: 'married',
+          groupValue: _maritalStatus,
+          onChanged: (value) {
+            setState(() {
+              _maritalStatus = value;
+            });
+          },
+        ),
+      ],
+    );
+  }
+
 
 
 
