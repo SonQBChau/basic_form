@@ -1,4 +1,5 @@
 import 'package:basic_form/form_page_1.dart';
+import 'package:basic_form/form_page_2.dart';
 import 'package:flutter/material.dart';
 
 
@@ -12,7 +13,8 @@ class MyApp extends StatelessWidget {
       theme: new ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: new FormPage1(title: 'Flutter Form Demo'),
+//      home: new FormPage1(title: 'Flutter Form Demo'),
+      home: new FormPage2(),
     );
   }
 }
