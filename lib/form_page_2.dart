@@ -14,6 +14,7 @@ class _SignUpFormState extends State<FormPage2> {
   int _selectedGender = 0;
   List<DropdownMenuItem<int>> genderList = [];
   String _maritalStatus = 'single';
+  bool _termsChecked = true;
 
 
   var _passKey = GlobalKey<FormFieldState>();
@@ -61,6 +62,7 @@ class _SignUpFormState extends State<FormPage2> {
     formWidget.add(confirmPasswordTextField());
     formWidget.add(genderDropdown());
     formWidget.add(statusRadioButton());
+    formWidget.add(termCheckbox());
 
     return formWidget;
   }
@@ -197,6 +199,28 @@ class _SignUpFormState extends State<FormPage2> {
           },
         ),
       ],
+    );
+  }
+
+  Widget termCheckbox() {
+
+    return CheckboxListTile(
+      value: _termsChecked,
+      onChanged: (value) {
+        setState(() {
+          _termsChecked = value;
+        });
+      },
+      subtitle: !_termsChecked
+          ? Text(
+        'Required',
+        style: TextStyle(color: Colors.red, fontSize: 12.0),
+      )
+          : null,
+      title: new Text(
+        'I agree to the terms and condition',
+      ),
+      controlAffinity: ListTileControlAffinity.leading,
     );
   }
 
