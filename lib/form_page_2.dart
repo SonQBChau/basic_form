@@ -11,13 +11,32 @@ class _SignUpFormState extends State<FormPage2> {
   String _name = '';
   String _email = '';
   int _age = 0;
+  int _selectedGender = 0;
+  List<DropdownMenuItem<int>> genderList = [];
+
 
   var _passKey = GlobalKey<FormFieldState>();
-
   String _password = '';
+
+  void loadGenderList() {
+    genderList = [];
+    genderList.add(new DropdownMenuItem(
+      child: new Text('Male'),
+      value: 0,
+    ));
+    genderList.add(new DropdownMenuItem(
+      child: new Text('Female'),
+      value: 1,
+    ));
+    genderList.add(new DropdownMenuItem(
+      child: new Text('Other'),
+      value: 2,
+    ));
+  }
 
   @override
   Widget build(BuildContext context) {
+    loadGenderList();
     return Scaffold(
       appBar: AppBar(
         title: Text('Form Demo 2'),
@@ -39,6 +58,7 @@ class _SignUpFormState extends State<FormPage2> {
     formWidget.add(ageTextField());
     formWidget.add(passwordTextField());
     formWidget.add(confirmPasswordTextField());
+    formWidget.add(genderDropdown());
 
     return formWidget;
   }
@@ -136,6 +156,21 @@ class _SignUpFormState extends State<FormPage2> {
           });
         });
   }
+
+  DropdownButton genderDropdown(){
+    return DropdownButton(
+      hint: new Text('Select Gender'),
+      items: genderList,
+      value: _selectedGender,
+      onChanged: (value) {
+        setState(() {
+          _selectedGender = value;
+        });
+      },
+      isExpanded: true,
+    );
+  }
+
 
 
 
