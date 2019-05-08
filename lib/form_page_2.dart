@@ -8,6 +8,7 @@ class FormPage2 extends StatefulWidget {
 
 class _SignUpFormState extends State<FormPage2> {
   final _formKey = GlobalKey<FormState>();
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
   String _name = '';
   String _email = '';
   int _age = 0;
@@ -36,10 +37,38 @@ class _SignUpFormState extends State<FormPage2> {
     ));
   }
 
+  void onPressedSubmit() {
+    if (_formKey.currentState.validate() && _termsChecked) {
+      _formKey.currentState.save();
+
+      print("Name " + _name);
+      print("Email " + _email);
+      print("Age " + _age.toString());
+      switch (_selectedGender) {
+        case 0:
+          print("Gender Male");
+          break;
+        case 1:
+          print("Gender Female");
+          break;
+        case 3:
+          print("Gender Others");
+          break;
+      }
+      print("Marital Status " + _maritalStatus);
+      print("Password " + _password);
+      print("Termschecked " + _termsChecked.toString());
+
+      final snackBar = SnackBar(content: Text('Form Submitted'));
+      _scaffoldKey.currentState.showSnackBar(snackBar);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     loadGenderList();
     return Scaffold(
+      key: _scaffoldKey,
       appBar: AppBar(
         title: Text('Form Demo 2'),
       ),
@@ -63,6 +92,7 @@ class _SignUpFormState extends State<FormPage2> {
     formWidget.add(genderDropdown());
     formWidget.add(statusRadioButton());
     formWidget.add(termCheckbox());
+    formWidget.add(submitButton());
 
     return formWidget;
   }
@@ -221,6 +251,15 @@ class _SignUpFormState extends State<FormPage2> {
         'I agree to the terms and condition',
       ),
       controlAffinity: ListTileControlAffinity.leading,
+    );
+  }
+
+  Widget submitButton() {
+    return RaisedButton(
+        color: Colors.blue,
+        textColor: Colors.white,
+        child: new Text('Sign Up'),
+        onPressed: onPressedSubmit
     );
   }
 
