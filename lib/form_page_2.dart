@@ -1,3 +1,4 @@
+import 'package:rubber/rubber.dart';
 import 'package:flutter/material.dart';
 import 'package:quiver/strings.dart';
 
@@ -6,7 +7,7 @@ class FormPage2 extends StatefulWidget {
   _SignUpFormState createState() => new _SignUpFormState();
 }
 
-class _SignUpFormState extends State<FormPage2> {
+class _SignUpFormState extends State<FormPage2> with SingleTickerProviderStateMixin{
   final _formKey = GlobalKey<FormState>();
   final _scaffoldKey = GlobalKey<ScaffoldState>();
   String _name = '';
@@ -16,10 +17,15 @@ class _SignUpFormState extends State<FormPage2> {
   List<DropdownMenuItem<int>> genderList = [];
   String _maritalStatus = 'single';
   bool _termsChecked = true;
+  final GlobalKey<ScaffoldState> _bottomScaffoldKey = GlobalKey<ScaffoldState>();
 
 
   var _passKey = GlobalKey<FormFieldState>();
   String _password = '';
+
+
+
+
 
   void loadGenderList() {
     genderList = [];
@@ -78,6 +84,9 @@ class _SignUpFormState extends State<FormPage2> {
           children: getFormWidget(),
         ),
       ),
+
+//    body : sidekickStack(controller,  context),
+
     );
   }
 
@@ -93,6 +102,11 @@ class _SignUpFormState extends State<FormPage2> {
     formWidget.add(statusRadioButton());
     formWidget.add(termCheckbox());
     formWidget.add(submitButton());
+
+
+
+
+
 
     return formWidget;
   }
@@ -115,8 +129,7 @@ class _SignUpFormState extends State<FormPage2> {
 
   TextFormField emailTextField() {
     return TextFormField(
-      decoration:
-          InputDecoration(labelText: 'Enter Email', hintText: 'Email'),
+      decoration: InputDecoration(labelText: 'Enter Email', hintText: 'Email'),
       keyboardType: TextInputType.emailAddress,
       validator: validateEmail,
       onSaved: (value) {
@@ -143,8 +156,7 @@ class _SignUpFormState extends State<FormPage2> {
 
   TextFormField ageTextField() {
     return TextFormField(
-      decoration:
-      InputDecoration(labelText: 'Enter Age', hintText: 'Age'),
+      decoration: InputDecoration(labelText: 'Enter Age', hintText: 'Age'),
       keyboardType: TextInputType.number,
       validator: (value) {
         if (value.isEmpty) {
@@ -159,12 +171,12 @@ class _SignUpFormState extends State<FormPage2> {
     );
   }
 
-  TextFormField passwordTextField(){
+  TextFormField passwordTextField() {
     return TextFormField(
         key: _passKey,
         obscureText: true,
-        decoration: InputDecoration(
-            hintText: 'Password', labelText: 'Enter Password'),
+        decoration:
+            InputDecoration(hintText: 'Password', labelText: 'Enter Password'),
         validator: (value) {
           if (value.isEmpty) return 'Please Enter password';
           if (value.length < 8)
@@ -172,12 +184,11 @@ class _SignUpFormState extends State<FormPage2> {
         });
   }
 
-  TextFormField confirmPasswordTextField(){
+  TextFormField confirmPasswordTextField() {
     return TextFormField(
         obscureText: true,
         decoration: InputDecoration(
-            hintText: 'Confirm Password',
-            labelText: 'Enter Confirm Password'),
+            hintText: 'Confirm Password', labelText: 'Enter Confirm Password'),
         validator: (confirmPassword) {
           if (confirmPassword.isEmpty) return 'Enter confirm password';
           var password = _passKey.currentState.value;
@@ -191,7 +202,7 @@ class _SignUpFormState extends State<FormPage2> {
         });
   }
 
-  DropdownButton genderDropdown(){
+  DropdownButton genderDropdown() {
     return DropdownButton(
       hint: new Text('Select Gender'),
       items: genderList,
@@ -233,7 +244,6 @@ class _SignUpFormState extends State<FormPage2> {
   }
 
   Widget termCheckbox() {
-
     return CheckboxListTile(
       value: _termsChecked,
       onChanged: (value) {
@@ -243,9 +253,9 @@ class _SignUpFormState extends State<FormPage2> {
       },
       subtitle: !_termsChecked
           ? Text(
-        'Required',
-        style: TextStyle(color: Colors.red, fontSize: 12.0),
-      )
+              'Required',
+              style: TextStyle(color: Colors.red, fontSize: 12.0),
+            )
           : null,
       title: new Text(
         'I agree to the terms and condition',
@@ -259,12 +269,16 @@ class _SignUpFormState extends State<FormPage2> {
         color: Colors.blue,
         textColor: Colors.white,
         child: new Text('Sign Up'),
-        onPressed: onPressedSubmit
-    );
+        onPressed: onPressedSubmit);
   }
 
 
 
 
 
-}
+
+
+  }
+
+
+
